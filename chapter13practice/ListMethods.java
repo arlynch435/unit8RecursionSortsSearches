@@ -43,17 +43,22 @@ public class ListMethods
        }
        return list;
     }
-   public static ArrayList even(ArrayList<Integer> tList)
+   public static ArrayList<Integer> even(ArrayList<Integer> tList)
    {
        ArrayList<Integer> list = ListMethods.deepClone(tList);
        if (list.size()<=2)
        {
-           int n=list.get(1);
+           int n=list.get(0);
            list= new ArrayList<Integer>(0);
            list.add(n);
         }
         else
         {
+            int n=list.get(0);
+            list.remove(0);
+            list.remove(0);
+            even(list);
+            list.add(n);
         }
         return list;
     }
@@ -72,6 +77,19 @@ public class ListMethods
          }
       }
       tempList=ListMethods.reverseList(tempList);
+      if (tempList.size() == 0)
+      {
+          System.out.println("The list is empty");
+      }
+      else
+      {
+         for (Integer i : tempList)
+         {
+            System.out.println(i);
+         }
+      }
+      tempList=ListMethods.reverseList(tempList);
+      tempList=ListMethods.even(tempList);
       if (tempList.size() == 0)
       {
           System.out.println("The list is empty");
