@@ -7,7 +7,7 @@ public class ListMethods
       ArrayList<Integer> tempList = null;
       if (n <= 0)  // The smallest list we can make
       {
-          tempList=new ArrayList<Integer>(0);
+          tempList=new ArrayList<Integer>();
       }
       else        // All other size lists are created here
       {
@@ -46,19 +46,17 @@ public class ListMethods
    public static ArrayList<Integer> even(ArrayList<Integer> tList)
    {
        ArrayList<Integer> list = ListMethods.deepClone(tList);
-       if (list.size()<=2)
+       if (list.size()<=1)
        {
-           int n=list.get(0);
-           list= new ArrayList<Integer>(0);
-           list.add(n);
+           return list;
         }
         else
         {
             int n=list.get(0);
             list.remove(0);
             list.remove(0);
-            even(list);
-            list.add(n);
+            list=even(list);
+            list.add(0,n);
         }
         return list;
     }
