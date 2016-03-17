@@ -13,11 +13,10 @@ public class TreePanel extends JPanel
    private final int PANEL_WIDTH = 400;
    private final int PANEL_HEIGHT = 400;
 
-   private final double FL=1.0/1.5;
+   private final double FL=1/1.2;
    private final double THETA=30;
    private Line2D.Double trunk;
-   private final double LINITIAL=100;
-   private final int TOPX = 200, TOPY = 20;
+   private final double LINITIAL=50;
 
    private int current; //current order
 
@@ -29,7 +28,7 @@ public class TreePanel extends JPanel
       current = currentOrder;
       setBackground (Color.black);
       setPreferredSize (new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
-      trunk=new Line2D.Double(200,400,200,400-LINITIAL);
+      trunk=new Line2D.Double(PANEL_WIDTH/2,PANEL_HEIGHT,PANEL_WIDTH/2,PANEL_HEIGHT-LINITIAL);
    }
 
    //-----------------------------------------------------------------
@@ -43,7 +42,7 @@ public class TreePanel extends JPanel
    {
        Graphics2D page2= (Graphics2D) page;
        double newThetaLeft= lastTheta+THETA;
-       double newThetaRight= lastTheta-THETA;
+       double newThetaRight= lastTheta-THETA+10;
        double newLength=lastLength*FL;
        double xL2=x1-newLength*Math.sin(Math.toRadians(newThetaLeft));
        double yL2=y1-newLength*Math.cos(Math.toRadians(newThetaLeft));
@@ -54,7 +53,9 @@ public class TreePanel extends JPanel
        {
            left=new Line2D.Double(x1,y1,xL2,yL2);
            right = new Line2D.Double(x1,y1,xR2,yR2);
+           page.setColor(Color.green);
            page2.draw(left);
+           page.setColor(Color.blue);
            page2.draw(right);
         }
         else
@@ -63,7 +64,9 @@ public class TreePanel extends JPanel
            drawFractal(order-1,xR2,yR2,newThetaRight,newLength,page);
            left=new Line2D.Double(x1,y1,xL2,yL2);
            right = new Line2D.Double(x1,y1,xR2,yR2);
+           page.setColor(Color.green);
            page2.draw(left);
+           page.setColor(Color.blue);
            page2.draw(right);
         }
    }
@@ -78,7 +81,7 @@ public class TreePanel extends JPanel
 
       page.setColor (Color.green);
       page2.draw(trunk);
-      drawFractal (current, 200, 400-LINITIAL, 0, LINITIAL, page);
+      drawFractal (current, PANEL_WIDTH/2, PANEL_HEIGHT-LINITIAL, 0, LINITIAL, page);
    }
 
    //-----------------------------------------------------------------
