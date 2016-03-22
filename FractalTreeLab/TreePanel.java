@@ -11,12 +11,12 @@ import java.awt.geom.Line2D;
 public class TreePanel extends JPanel
 {
    private final int PANEL_WIDTH = 400;
-   private final int PANEL_HEIGHT = 400;
+   private final int PANEL_HEIGHT = 800;
 
    private final double FL=1/1.2;
-   private final double THETA=30;
+   private double THETA=30;
    private Line2D.Double trunk;
-   private final double LINITIAL=50;
+   private double LINITIAL=50;
 
    private int current; //current order
 
@@ -30,6 +30,14 @@ public class TreePanel extends JPanel
       setPreferredSize (new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
       trunk=new Line2D.Double(PANEL_WIDTH/2,PANEL_HEIGHT,PANEL_WIDTH/2,PANEL_HEIGHT-LINITIAL);
    }
+   public void setTheta(double newTheta)
+   {
+       THETA=newTheta;
+    }
+    public void setLInitial(double newLInitial)
+   {
+       LINITIAL=newLInitial;
+    }
 
    //-----------------------------------------------------------------
    //  Draws the fractal recursively. Base case is an order of 1 for
@@ -42,7 +50,7 @@ public class TreePanel extends JPanel
    {
        Graphics2D page2= (Graphics2D) page;
        double newThetaLeft= lastTheta+THETA;
-       double newThetaRight= lastTheta-THETA+10;
+       double newThetaRight= lastTheta-THETA;
        double newLength=lastLength*FL;
        double xL2=x1-newLength*Math.sin(Math.toRadians(newThetaLeft));
        double yL2=y1-newLength*Math.cos(Math.toRadians(newThetaLeft));
@@ -80,6 +88,7 @@ public class TreePanel extends JPanel
        super.paintComponent (page);
 
       page.setColor (Color.green);
+      trunk=new Line2D.Double(PANEL_WIDTH/2,PANEL_HEIGHT,PANEL_WIDTH/2,PANEL_HEIGHT-LINITIAL);
       page2.draw(trunk);
       drawFractal (current, PANEL_WIDTH/2, PANEL_HEIGHT-LINITIAL, 0, LINITIAL, page);
    }

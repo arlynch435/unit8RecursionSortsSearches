@@ -1,34 +1,36 @@
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-/**
- * Write a description of class FileChooser here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
+import java.io.*;
 public class FileChooser
 {
-    public static void main(String[] args) throws FileNotFoundException
+    public static void main(String[] args)
     {
-        Scanner user=new Scanner(System.in);
-        String fileName=user.next();
-        File text=new File(fileName);
-        Scanner in=new Scanner(text);
-       int wordCount=0;
-       int lines=0;
-       int letters=0;
-        while (in.next()!=null)
+        try
         {
-            wordCount++;
-        }
-                while (in.next()!=null)
-        {
-            wordCount++;
-        }
-                while (in.hasNextLine())
-        {
-            lines++;
+            Scanner user=new Scanner(System.in);
+            System.out.println("Enter the name of the file");
+            String fileName=user.next();
+            File text=new File(fileName);
+            Scanner in=new Scanner(text);
+            in.useDelimiter(" ");
+            Scanner linechecker=new Scanner(text);
+            in.useDelimiter("\n");
+           int wordCount=0;
+           int lines=0;
+           int letters=0;
+            while (in.hasNext())
+            {
+                wordCount++;
+            }
+            System.out.println("Words: "+wordCount);
+            while (linechecker.hasNext())
+            {
+                lines++;
+            }
+            System.out.println("Lines: "+lines);
+      }
+      catch(IOException exception)
+      {
+          System.out.println(exception);
         }
     }
 

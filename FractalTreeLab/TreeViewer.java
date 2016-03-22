@@ -8,19 +8,22 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 
-public class TreeViewer implements ActionListener
+public class TreeViewer implements ActionListener, ChangeListener
 {
-    private final int WIDTH = 400;
-    private final int HEIGHT = 500;
+    private final int WIDTH = 900;
+    private final int HEIGHT = 1000;
 
-    private final int MIN = 1, MAX = 180;
+    private final int MIN = 1, MAX = 18;
 
     private JButton increase, decrease;
-    private JLabel titleLabel, orderLabel;
+    private JLabel titleLabel, orderLabel,angleLabel,trunkLabel;
     private TreePanel drawing;
     private JPanel panel, tools;
     private JFrame frame;
+    private JSlider angle;
+    private JSlider trunkLength;
 
     //-----------------------------------------------------------------
     //  Sets up the components for the applet.
@@ -48,9 +51,17 @@ public class TreeViewer implements ActionListener
         decrease.setPressedIcon (new ImageIcon ("decreasePressed.gif"));
         decrease.setMargin (new Insets (0, 0, 0, 0));
         decrease.addActionListener (this);
+        angle = new JSlider (0,90,30);
+        angle.addChangeListener (this);
+        trunkLength = new JSlider (0,250,50);
+        trunkLength.addChangeListener (this);
 
         orderLabel = new JLabel ("Order: 1");
         orderLabel.setForeground (Color.black);
+        angleLabel = new JLabel ("Angle: 30");
+        angleLabel.setForeground (Color.black);
+        trunkLabel = new JLabel ("Trunk Length: 50");
+        trunkLabel.setForeground (Color.black);
 
         tools.add (titleLabel);
         tools.add (Box.createHorizontalStrut (20));
@@ -58,6 +69,10 @@ public class TreeViewer implements ActionListener
         tools.add (increase);
         tools.add (Box.createHorizontalStrut (20));
         tools.add (orderLabel);
+        tools.add(angle);
+        tools.add (angleLabel);
+        tools.add(trunkLength);
+        tools.add (trunkLabel);
 
         drawing = new TreePanel (1);
 
@@ -77,6 +92,23 @@ public class TreeViewer implements ActionListener
     //  Determines which button was pushed, and sets the new order
     //  if it is in range.
     //-----------------------------------------------------------------
+    public void stateChanged(ChangeEvent event)
+    {
+        JSlider slider=(JSlider) event.getSource();
+        double value=(double) slider.getValue();
+        if (slider==angle)
+        {
+            angleLabel.setText ("Angle: " + value);
+            drawing.setTheta (value);
+            frame.repaint();
+        }
+        else if (slider==trunkLength)
+        {
+            trunkLabel.setText ("Trunk Length: " + value);
+            drawing.setLInitial (value);
+            frame.repaint();
+        }
+    }
     public void actionPerformed (ActionEvent event)
     {
         int order = drawing.getOrder();
