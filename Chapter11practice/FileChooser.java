@@ -11,22 +11,34 @@ public class FileChooser
             String fileName=user.next();
             File text=new File(fileName);
             Scanner in=new Scanner(text);
-            in.useDelimiter(" ");
             Scanner linechecker=new Scanner(text);
-            in.useDelimiter("\n");
+            linechecker.useDelimiter("\n");
+            Scanner charChecker=new Scanner(text);
+            charChecker.useDelimiter("");
            int wordCount=0;
            int lines=0;
            int letters=0;
             while (in.hasNext())
             {
+                String word=in.next();
                 wordCount++;
             }
             System.out.println("Words: "+wordCount);
             while (linechecker.hasNext())
             {
+                String line=linechecker.next();
                 lines++;
             }
             System.out.println("Lines: "+lines);
+            while (charChecker.hasNext())
+            {
+                String letter=charChecker.next();
+                letters++;
+            }
+            System.out.println("Letters: "+letters);
+            in.close();
+            linechecker.close();
+            charChecker.close();
       }
       catch(IOException exception)
       {
