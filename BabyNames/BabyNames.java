@@ -11,7 +11,6 @@ public class BabyNames
       File babies=new File("babynames80s.txt");
 //        Scanner in = new Scanner(new File("babynames.txt"));
        Scanner topBaby=new Scanner(babies);
-       topBaby.useDelimiter(" ");
       Scanner lineChecker=new Scanner(babies);
       lineChecker.useDelimiter("\n");
       int lines=0;
@@ -20,11 +19,11 @@ public class BabyNames
         String line=lineChecker.next();
         lines++;
       }
-      int topHalf=lines/2;
+      int topHalf=lines/2 *5;
       for (int i=0;i<topHalf; i++)
       {
         String line=topBaby.next();
-        System.out.println(line);
+        System.out.print(line);
       }
       
 //       RecordReader boys = new RecordReader(LIMIT);
